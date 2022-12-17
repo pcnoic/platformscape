@@ -513,5 +513,5 @@ We are connecting with a `user` value of `ubuntu`, a host value of the `public_i
 
 If everything went according to plan, in your Gitlab runners section of the group or the project you picked the registration token from, there should appear a new runner.
 
-![Runners appearing in the Gitlab dashboard](../static/img/runners-spot-instances-terraform.png)
+![Runners appearing in the Gitlab dashboard](https://platformscape.com/static/img/runners-spot-instances-terraform.png)
 
