@@ -419,7 +419,7 @@ data "template_file" "runner_init" {
 Since we want to reach our runners to bootstrap them with the tools of the trade, it's time we assign an elastic IP to them.
 
 `eips.tf`
-```terraform
+```
 resource "aws_eip" "runner" {
   vpc   = true
 
@@ -447,7 +447,7 @@ What we can do, instead, is utilize the `null_resource` resource that implements
 We are setting its `triggers` argument to the `id` of the runners. The `null_resource` will execute the provisioners and our instances will be bootstrapped.
 
 `instances.tf`
-```terraform
+```
 resource "null_resource" "runner" {
 
   triggers = {
