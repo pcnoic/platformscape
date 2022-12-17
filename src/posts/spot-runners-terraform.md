@@ -47,7 +47,7 @@ For a production setup, choosing between either an S3 backend or a managed backe
 
 
 `main.tf`
-```tf
+```
 terraform {
   required_providers {
     aws = {
@@ -62,7 +62,7 @@ terraform {
 Setting up the AWS provider is straightforward and it will allow us to interact with the AWS API to manage resources. Authenticating against the API with the provider can happen in multiple ways, such as directly [adding the credentials to the provider's configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#provider-configuration):
 
 `providers.tf`
-```tf
+```
 provider "aws" {
   access_key = "my-access-key"
   secret_key = "my-secret-key"
@@ -75,7 +75,7 @@ or by exporting the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` variables as
 The most important bit of configuration apart from configuring the credentials is letting the provider know with which region is going to interact. This can be achieved by adding the `region` argument in the `provider` block.
 
 `providers.tf`
-```tf
+```
 provider "aws" {
   region     = "us-west-2"
   access_key = "my-access-key"
@@ -92,7 +92,7 @@ We are launching all of our resources in a separate private network that we are 
 Keeping some of the values in a separate file can help with doing quick changes in case we need to reprovision a network with a different CIDR block or move the subnets to a different range.
 
 `vars.tf`
-```tf
+```
 variable "vpc_cidr_block" {
   default = "10.10.0.0/16"
 }
@@ -108,7 +108,7 @@ variable "public_subnet_az" {
 
 
 `network.tf`
-```tf
+```
 resource "aws_vpc" "runners" {
   cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = true
@@ -123,7 +123,7 @@ resource "aws_vpc" "runners" {
 After creating the VPC we can start adding all the other resources that are going to allow entities appearing inside this VPC (e.g our runners' spot instances) to have internet access and proper firewalling.
 
 `network.tf`
-```tf
+```
 resource "aws_vpc" "runners" {
   cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = true
@@ -184,7 +184,7 @@ Making sure that the instances are only communicating with entities that they ar
 A good idea is to allow SSH access from the external IP block that we use to connect to instances for administration purposes so that we can debug if something goes wrong. For the runners, we don't need to configure any other type of ingress rules since they're pull-based.
 
 `sg.tg`
-```tf
+```
 resource "aws_security_group" "runner" {
   name        = "runner"
   description = "Allow all outbound traffic, allow ssh inbound traffic"
@@ -217,7 +217,7 @@ resource "aws_security_group" "runner" {
 The common thing to do when launching a new instance, be it a spot or a classic one, is to select the image that is going to run in the host. To do that, we can take advantage of Terraform's querying abilities and use a data source of type `aws_ami` to get the ami id.
 
 `instances.tf`
-```tf
+```
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -238,7 +238,7 @@ data "aws_ami" "ubuntu" {
 I chose to go with a typical Ubuntu 20.04 image for an amd64 server. If it suits your workload you can choose to go with an arm image and the equivalent server type, since they're typically 40% cheaper.
 
 `instances.tf`
-```tf
+```
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -334,7 +334,7 @@ sudo systemctl enable docker
 
 
 `install_runner.tpl`
-```tf
+```
 #!/bin/bash
 
 # Add the GitLab Runner package repository
@@ -365,7 +365,7 @@ We went with a per-group runner, so we grabbed the registration token from a cer
 Now, using the `template_file` data source we can interpolate the values of our choice in the `install_runner.tpl` file.
 
 `instances.tf`
-```tf
+```
 data "aws_ami" "ubuntu" {
   most_recent = true
 
