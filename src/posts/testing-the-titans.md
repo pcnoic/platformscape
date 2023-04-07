@@ -8,15 +8,11 @@
 - [Case Study: An E-commerce Application](case-study-an-e-commerce-application)
 - [To Sum Up]()
 
-<a name="introduction"></a>
-
 ### Introduction
 
 Systems tend to grow increasingly complex and interdependent, and reliability engineering must leverage the power of monitoring and observability tools to maintain applications. Among the myriad of available solutions, Prometheus has emerged as a powerful, open-source monitoring system, praised for its flexible query language and easy integration with other tools.
 
 One of the core components of Prometheus is its rules system, which allows you to define alerting and recording rules. However, just like any other code, these rules can be prone to errors. To ensure the reliability of your monitoring setup, it's crucial to implement unit testing for your Prometheus rules. In this article, we will discuss how to set up a testing environment, write unit tests, and run them for your rules. We'll also explore a case study to see these concepts in action.
-
-<a name="unit-testing-in-prometheus"></a>
 
 ### Unit Testing in Prometheus
 
@@ -76,8 +72,6 @@ With your test scenarios defined, it's time to run them. To do so, use the `prom
 `promtool test rules tests/rules_test.yml`
 
 If your tests pass, you'll see a success message. Otherwise, you'll get detailed information about the failed tests, helping you identify and fix issues in your rules.
-
-<a name="case-study-an-e-commerce-application"></a>
 
 ### Case Study: An E-commerce Application
 
@@ -146,8 +140,6 @@ promtool test rules tests/rules_test.yml
 ```
 
 If all tests pass, you can be confident that your rules are working correctly. Otherwise, you can adjust your rules and re-run the tests until they pass.
-
-<a name="to-sum-up"></a>
 
 ### To Sum Up
 
