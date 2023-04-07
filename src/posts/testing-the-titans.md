@@ -1,3 +1,13 @@
+---
+title: TTesting the Titans: Unit Testing Prometheus Rules for Reliable Monitoring
+description: Unit test your Prometheus rules for peace of mind.
+date: 2023-04-07
+author: Christos Alexiou
+tags:
+  - monitoring
+  - reliability
+---
+
 # Testing the Titans: Unit Testing Prometheus Rules for Reliable Monitoring
 
 #### Table of Contents
