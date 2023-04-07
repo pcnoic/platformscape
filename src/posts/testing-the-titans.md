@@ -8,15 +8,13 @@ tags:
   - reliability
 ---
 
-# Testing the Titans: Unit Testing Prometheus Rules for Reliable Monitoring
-
 #### Table of Contents
-- [Introduction](introduction)
-- [Unit Testing in Prometheus](unit-testing-in-prometheus)
-- [Setting Up Your Test Environment](etting-up-your-test-environment)
-- [Writing Unit Tests](writing-unit-tests)
-- [Case Study: An E-commerce Application](case-study-an-e-commerce-application)
-- [To Sum Up]()
+- [Introduction](#introduction)
+- [Unit Testing in Prometheus](#unit-testing-in-prometheus)
+- [Setting Up Your Test Environment](#setting-up-your-test-environment)
+- [Writing Unit Tests](#writing-unit-tests)
+- [Case Study: An E-commerce Application](#case-study-an-e-commerce-application)
+- [To Sum Up](#to-sum-up)
 
 ### Introduction
 
