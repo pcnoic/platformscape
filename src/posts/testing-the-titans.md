@@ -18,8 +18,6 @@ One of the core components of Prometheus is its rules system, which allows you t
 
 Prometheus provides a powerful built-in feature to test your rules using a YAML file, called the _Prometheus Unit Testing Framework_. This framework allows you to define a set of input series, the expected output, and assertions to validate your rules' correctness. Unit tests are an essential part of any software development process, and applying this practice to your Prometheus rules will help you prevent issues and improve overall reliability.
 
-<a name="setting-up-your-test-environment"></a>
-
 ### Setting Up Your Test Environment
 
 Before diving into writing unit tests, let's set up your test environment. First, you need to have Prometheus installed on your system. If you haven't done this yet, follow the [official guide](https://prometheus.io/docs/prometheus/latest/installation/) to get it up and running.
@@ -30,8 +28,6 @@ Next, create a directory structure to organize your rules and test files:
 
 In the `prometheus/rules` directory, create a file named rules.yml to store your Prometheus rules. In the tests directory, create a file named `rules_test.yml` for the test scenarios.
 
-<a name="writing-unit-tests"></a>
-
 ### Writing Unit Tests
 
 Now that your environment is ready, let's learn how to write unit tests. First, open the `rules_test.yml` file and start by defining a global evaluation time:
@@ -40,11 +36,14 @@ Now that your environment is ready, let's learn how to write unit tests. First, 
 
 Next, define the input series for your tests. This data simulates the time series that Prometheus would scrape from your application. Use the `input_series` key followed by a list of series with their respective labels and values:
 
+
+
 ```
 input_series:
   - series: 'http_requests_total{job="app", instance="instance-1"}'
     values: '0 1 2 3 4 5 6 7 8 9'
 ```
+
 
 Now it's time to write the test scenarios. Each scenario should be defined under the `tests` key. For each test, you should specify:
 
@@ -55,6 +54,8 @@ Now it's time to write the test scenarios. Each scenario should be defined under
 
 Here's an example of a test scenario:
 
+
+
 ```
 tests:
   - name: 'Test http_requests_total rate'
@@ -64,6 +65,8 @@ tests:
       - labels: 'instance=instance-1,job=app'
         value: '0.03333333333333333'
 ```
+
+
 
 In this test, we're checking the rate of the `http_requests_total` metric for a specific job and instance over a 5-minute window. We expect the result to be `0.03333333333333333`.
 
@@ -78,6 +81,7 @@ If your tests pass, you'll see a success message. Otherwise, you'll get detailed
 To demonstrate the power of unit testing Prometheus rules, let's consider a case study of an e-commerce application. The application consists of multiple services, such as authentication, payment processing, and inventory management.
 
 We want to monitor the application's latency and error rate to ensure a smooth user experience. Here are two Prometheus rules defined in the `prometheus/rules/rules.yml` file:
+
 
 ```
 groups:
@@ -95,7 +99,9 @@ groups:
           summary: "High error rate ({{ $value }}) detected for job {{ $labels.job }}"
 ```
 
+
 Now, let's create unit tests for these rules in the `tests/rules_test.yml` file:
+
 
 ```
 evaluation_time: 2023-04-07T12:00:00Z
@@ -130,6 +136,7 @@ tests:
     eval_time: 1m
     exp_result: []
 ```
+
 
 In the test file, we define three tests. The first test validates the `request_latency_seconds` mean rate calculation. The second test checks if the `HighErrorRate` alert is firing when the error rate is above the threshold. The third test ensures the alert is not firing when the error rate is below the threshold.
 
