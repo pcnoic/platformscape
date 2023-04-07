@@ -96,7 +96,7 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "High error rate ({{ \$value }}) detected for job {{ \$labels.job }}"
+          summary: "High error rate ('{{ $value }}') detected for job '{{ $labels.job }}'"
 ```
 
 
